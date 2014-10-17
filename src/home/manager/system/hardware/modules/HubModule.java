@@ -49,7 +49,6 @@ public class HubModule extends BaseModule implements ParentModule {
     public boolean addAllModule(Module... modules) {
         for (Module m : modules) {
             this.addModule(m);
-            ;
         }
         return true;
     }
@@ -79,6 +78,7 @@ public class HubModule extends BaseModule implements ParentModule {
     public boolean removeAllModule() {
         moduleList.clear();
         return true;
+
     }
 
     @Override
