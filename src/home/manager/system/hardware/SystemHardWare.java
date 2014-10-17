@@ -41,7 +41,6 @@ public class SystemHardWare extends CommunicableListener {
 
     private SystemHardWare() {
         modulesManager = new ModulesManager();
-        System.out.println(modulesManager.parentModuleList);
     }
 
     /**
@@ -184,7 +183,7 @@ public class SystemHardWare extends CommunicableListener {
 
         protected ParentModule getParentModule(long moduleId) {
             for (ParentModule m : parentModuleList) {
-                if (m.getId() >= moduleId && moduleId <= (this.unitModulesCount + m.getId()))
+                if (m.getId() <= moduleId && moduleId <= (this.unitModulesCount + m.getId()))
                     return m;
             }
             return null;

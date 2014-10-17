@@ -39,6 +39,7 @@ import java.util.Scanner;
  */
 public class Bootstrap {
 
+    private final static String VERSION = "0.01-ALPHA";
     private static Settings settings;
     private static Scanner scanner;
     private static HomeManagerSystem homeManagerSystem;
@@ -48,6 +49,8 @@ public class Bootstrap {
      *             usage java HomeManagerSystem username password
      */
     public static void main(String[] args) {
+
+        version();
 
         if (isUpdateAvailable()) {
             update();
@@ -92,6 +95,12 @@ public class Bootstrap {
 
     }
 
+    private static void version() {
+        System.out.printf("Home Manager System (c) copyright %d Okafor Akachukwu " +
+                "\n All rights Reserved \n Version: %s", 2014, VERSION);
+        System.out.println();
+    }
+
     private static InputStream getInputStream() {
         return System.in;
     }
@@ -118,7 +127,7 @@ public class Bootstrap {
     }
 
     private static boolean isUpdateAvailable() {
-        return true;
+        return false;
     }
 
     private static void update() {

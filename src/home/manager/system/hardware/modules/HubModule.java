@@ -91,14 +91,21 @@ public class HubModule extends BaseModule implements ParentModule {
 
     @Override
     public boolean turnOnModule(long moduleId) {
-        if (this.getId() == moduleId)
+        if (this.getId() == moduleId) {
             this.turnOn();
-        this.getModule(moduleId).turnOn();
+        } else {
+            if (this.moduleList.containsKey(moduleId)) {
+                this.getModule(moduleId).turnOn();
+            }
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return String.format("Class: %s, Id: %s", this.getClass().getSimpleName(), this.getId());
+        StringBuilder b = new StringBuilder();
+        for (Module m : this.moduleList.values())
+            b.append(m.toString()).append("\n");
+        return b.toString();
     }
 }

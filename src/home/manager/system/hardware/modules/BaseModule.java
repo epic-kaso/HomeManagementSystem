@@ -37,7 +37,6 @@ abstract public class BaseModule implements Module {
 
     public BaseModule(long id) {
         this.setId(id);
-        this.turnOff();
     }
 
     @Override

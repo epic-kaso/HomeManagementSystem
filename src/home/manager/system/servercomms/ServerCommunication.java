@@ -54,7 +54,7 @@ public class ServerCommunication extends CommunicableListener {
                 settings.getHostAddress() == null ? "http://169.254.123.43:8000" : settings.getHostAddress();
 
         RestAdapter restAdapter = new RestAdapter.Builder()
-                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .setLogLevel(RestAdapter.LogLevel.BASIC)
                 .setEndpoint(endpoint)
                 .setErrorHandler(new ServerErrorHandler())
                 .build();
