@@ -1,8 +1,8 @@
 package home.manager.system;
 
 import home.manager.system.common.Communicable;
-import home.manager.system.common.Listener;
 import home.manager.system.common.Message;
+import home.manager.system.hardware.SystemHardWareMessage;
 
 /**
  * **********************************************************************
@@ -39,20 +39,20 @@ public class HomeManagerSystem {
                        final Communicable systemHardWare) {
 
 
-        serverCommunication.addListener(new Listener() {
-            @Override
-            public void executeMessage(Communicable communicable, Message message) {
-                systemHardWare.sendMessage(message);
-            }
-        });
+        serverCommunication.addListener((communicable, message) -> systemHardWare.sendMessage(message));
 
 
-        systemHardWare.addListener(new Listener() {
-            @Override
-            public void executeMessage(Communicable communicable, Message message) {
-                serverCommunication.sendMessage(message);
-            }
-        });
+        systemHardWare.addListener((communicable, message) -> serverCommunication.sendMessage(message));
 
+        testMessaging(systemHardWare);
+
+    }
+
+    private void testMessaging(Communicable c) {
+        Message m = new SystemHardWareMessage();
+        m.setModuleId(4);
+        m.setMessage("1");
+
+        c.sendMessage(m);
     }
 }
