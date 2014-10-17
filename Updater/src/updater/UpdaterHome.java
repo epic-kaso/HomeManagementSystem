@@ -6,6 +6,10 @@
 
 package updater;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 /**
  * @author kaso
  */
@@ -23,9 +27,14 @@ public class UpdaterHome extends javax.swing.JFrame implements ServerUpdate.List
     public UpdaterHome() {
         initComponents();
         this.downloadProgessBar.setMaximum(100);
+        try {
+            URL url = new URL("http://localhost/homemanager/latest.jar");
+            ServerUpdate update = new ServerUpdate(url);
+            update.setListener(this);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
 
-        ServerUpdate update = new ServerUpdate();
-        update.fetchUpdateFromServer(this);
     }
 
     /**
@@ -116,8 +125,32 @@ public class UpdaterHome extends javax.swing.JFrame implements ServerUpdate.List
     }// </editor-fold>//GEN-END:initComponents
     // End of variables declaration//GEN-END:variables
 
+
     @Override
-    public void update(int progress) {
+    public void update(int progress, ServerUpdate.STATUS status) {
+        this.informationLabel.setText(status.toString().toLowerCase());
         this.downloadProgessBar.setValue(progress);
+
+        switch (status) {
+            case COMPLETED:
+                this.finishAndStartedServer();
+                break;
+            default:
+                return;
+        }
+    }
+
+    private void finishAndStartedServer() {
+        String updateStr = "java -jar SmartHome.jar";
+        Runtime runtime = Runtime.getRuntime();
+        Process process = null;//new ProcessBuilder().command("").start();
+        try {
+            System.out.println("Running Exec");
+            process = runtime.exec(updateStr);
+            System.exit(0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

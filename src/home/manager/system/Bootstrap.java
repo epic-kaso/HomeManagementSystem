@@ -1,5 +1,10 @@
 package home.manager.system;
 
+import home.manager.system.common.Communicable;
+import home.manager.system.common.Message;
+import home.manager.system.hardware.SystemHardWare;
+import home.manager.system.hardware.SystemHardWareMessage;
+import home.manager.system.servercomms.ServerCommunication;
 import home.manager.system.utils.Settings;
 
 import java.io.IOException;
@@ -14,10 +19,10 @@ import java.util.Scanner;
  * @email   :  kasoprecede47@gmail.com
  * @date    :  10/16/2014
  * This file was created by the said author as written above
-see http://www.kaso.co/
+ * see http://www.kaso.co/
  * **********************************************************************
  * %%
- * Copyright (C) 2012 - 2014 OKAFOR AKACHUKWU
+ * Copyright (C) 2012 - 2014 OKAFOR AKACHUKWU E.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,44 +49,46 @@ public class Bootstrap {
      */
     public static void main(String[] args) {
 
-        checkForUpdate();
+        if (isUpdateAvailable()) {
+            update();
+        }
 
-//        settings = Settings.getInstance();
-//        scanner = new Scanner(getInputStream());
-//        homeManagerSystem = new HomeManagerSystem();
-//
-//        String username,
-//                password;
-//
-//        if (args.length > 2) {
-//            username = args[0];
-//            password = args[1];
-//        } else {
-//            username = getUsername();
-//            password = getPassword();
-//        }
-//
-//        try {
-//
-//            // ServerCommunication.initialize(username, password);
-//            SystemHardWare.initialize();
-//
-//            Communicable c = SystemHardWare.getInstance();
-//
-//            Message m = new SystemHardWareMessage();
-//            m.setModuleId(4);
-//            m.setMessage("1");
-//
-//           // c.sendMessage(m);
-//
-//
-//            //homeManagerSystem.manage(ServerCommunication.getInstance(),
-//                    //SystemHardWare.getInstance());
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//
-//        }
+        settings = Settings.getInstance();
+        scanner = new Scanner(getInputStream());
+        homeManagerSystem = new HomeManagerSystem();
+
+        String username,
+                password;
+
+        if (args.length > 2) {
+            username = args[0];
+            password = args[1];
+        } else {
+            username = getUsername();
+            password = getPassword();
+        }
+
+        try {
+
+            ServerCommunication.initialize(username, password);
+            SystemHardWare.initialize();
+
+            Communicable c = SystemHardWare.getInstance();
+
+            Message m = new SystemHardWareMessage();
+            m.setModuleId(4);
+            m.setMessage("1");
+
+            c.sendMessage(m);
+
+
+            homeManagerSystem.manage(ServerCommunication.getInstance(),
+                    SystemHardWare.getInstance());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
 
     }
 
@@ -110,7 +117,11 @@ public class Bootstrap {
         return scanner.next();
     }
 
-    private static void checkForUpdate() {
+    private static boolean isUpdateAvailable() {
+        return true;
+    }
+
+    private static void update() {
         String updateStr = "java -jar Updater.jar";
         Runtime runtime = Runtime.getRuntime();
         Process process = null;
