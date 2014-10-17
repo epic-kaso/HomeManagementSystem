@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact name="Updater:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/SmartHome_jar</output-path>
+    <root id="root">
+      <element id="archive" name="Updater.jar">
+        <element id="module-output" name="Updater" />
+      </element>
+    </root>
+  </artifact>
+</component>

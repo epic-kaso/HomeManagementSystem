@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Class-Path: retrofit-1.6.1.jar com.google.gson_2.1.0.v201303041604.jar
+  pi4j-core.jar pi4j-device.jar pi4j-example.jar pi4j-service.jar pi4j
+ -core-javadoc.jar pi4j-core-sources.jar pi4j-device-javadoc.jar pi4j-
+ device-sources.jar pi4j-gpio-extension.jar pi4j-example-javadoc.jar p
+ i4j-example-sources.jar pi4j-service-javadoc.jar pi4j-service-sources
+ .jar pi4j-gpio-extension-javadoc.jar pi4j-gpio-extension-sources.jar
+Main-Class: home.manager.system.Bootstrap
+

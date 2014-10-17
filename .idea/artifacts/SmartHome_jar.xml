@@ -1,0 +1,27 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="SmartHome:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/SmartHome_jar</output-path>
+    <root id="root">
+      <element id="archive" name="SmartHome.jar">
+        <element id="module-output" name="SmartHome" />
+      </element>
+      <element id="library" level="module" name="retrofit-1.6.1.jar" module-name="SmartHome" />
+      <element id="library" level="module" name="com.google.gson_2.1.0.v201303041604.jar" module-name="SmartHome" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/pi4j-0.0.5/lib/pi4j-core.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/pi4j-0.0.5/lib/pi4j-device.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/pi4j-0.0.5/lib/pi4j-example.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/pi4j-0.0.5/lib/pi4j-service.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/pi4j-0.0.5/lib/pi4j-core-javadoc.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/pi4j-0.0.5/lib/pi4j-core-sources.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/pi4j-0.0.5/lib/pi4j-device-javadoc.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/pi4j-0.0.5/lib/pi4j-device-sources.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/pi4j-0.0.5/lib/pi4j-gpio-extension.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/pi4j-0.0.5/lib/pi4j-example-javadoc.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/pi4j-0.0.5/lib/pi4j-example-sources.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/pi4j-0.0.5/lib/pi4j-service-javadoc.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/pi4j-0.0.5/lib/pi4j-service-sources.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/pi4j-0.0.5/lib/pi4j-gpio-extension-javadoc.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/pi4j-0.0.5/lib/pi4j-gpio-extension-sources.jar" />
+    </root>
+  </artifact>
+</component>
