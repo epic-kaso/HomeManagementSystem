@@ -82,6 +82,22 @@ public class HubModule extends BaseModule implements ParentModule {
     }
 
     @Override
+    public boolean turnOffModule(long moduleId) {
+        if (this.getId() == moduleId)
+            this.turnOff();
+        this.getModule(moduleId).turnOff();
+        return true;
+    }
+
+    @Override
+    public boolean turnOnModule(long moduleId) {
+        if (this.getId() == moduleId)
+            this.turnOn();
+        this.getModule(moduleId).turnOn();
+        return true;
+    }
+
+    @Override
     public String toString() {
         return String.format("Class: %s, Id: %s", this.getClass().getSimpleName(), this.getId());
     }

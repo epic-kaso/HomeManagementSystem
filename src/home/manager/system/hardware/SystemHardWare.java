@@ -1,6 +1,5 @@
 package home.manager.system.hardware;
 
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import home.manager.system.common.CommunicableListener;
 import home.manager.system.common.Message;
 import home.manager.system.hardware.modules.Module;
@@ -41,7 +40,6 @@ public class SystemHardWare extends CommunicableListener {
     private ModulesManager modulesManager;
 
     private SystemHardWare() {
-
         modulesManager = new ModulesManager();
         System.out.println(modulesManager.parentModuleList);
     }
@@ -65,8 +63,16 @@ public class SystemHardWare extends CommunicableListener {
         return systemHardWare;
     }
 
-    public void processAction(ActionType actionType, String value) {
-        System.out.printf("Instructions received- Action: %s Value: %s", actionType.name(), value);
+    public void processAction(long moduleId, int onOrOff) {
+        ParentModule m = this.modulesManager.getParentModule(moduleId);
+
+        if (m != null) {
+            if (onOrOff == 0) {
+                m.turnOffModule(moduleId);
+            } else {
+                m.turnOnModule(moduleId);
+            }
+        }
     }
 
     private void createMessage(ActionType actionType, String value) {
@@ -77,7 +83,7 @@ public class SystemHardWare extends CommunicableListener {
                     System.out.println("Sending ,message to server");
                     ServerCommunicationMessage message = new ServerCommunicationMessage();
                     message.setMessageType(0);
-                    message.setMessage(encodeMessage("Testing UpStream...."));
+                    message.setMessage("Testing UpStream....");
                     informObservers(message);
                     try {
                         Thread.sleep(4000);
@@ -89,10 +95,6 @@ public class SystemHardWare extends CommunicableListener {
         };
         t.start();
 
-    }
-
-    private String encodeMessage(String s) {
-        return Base64.encode(s.getBytes());
     }
 
     /**
@@ -107,10 +109,13 @@ public class SystemHardWare extends CommunicableListener {
 
     @Override
     public boolean sendMessage(Message message) {
-        this.processAction(
-                SystemHardWare.ActionType.valueOf(message.getMessageTypeDescription()),
-                message.getMessage()
-        );
+        try {
+            this.processAction(message.getModuleId(),
+                    Integer.parseInt(message.getMessage())
+            );
+        } catch (NumberFormatException e) {
+            return false;
+        }
         return true;
     }
 
@@ -123,13 +128,15 @@ public class SystemHardWare extends CommunicableListener {
         private String unitModuleSettingsParam = "unit-modules";
         private String ParentModuleClassSettingsParam = "parent-module-class";
         private String unitModuleClassSettingsParam = "unit-module-class";
+        private int unitModulesCount;
+        private int parentModulesCount;
 
 
         public ModulesManager() {
             parentModuleList = new ArrayList<>();
 
-            int parentModulesCount = Integer.parseInt(Settings.getInstance().getParam(ParentModuleSettingsParam));
-            int unitModulesCount = Integer.parseInt(Settings.getInstance().getParam(unitModuleSettingsParam));
+            this.parentModulesCount = Integer.parseInt(Settings.getInstance().getParam(ParentModuleSettingsParam));
+            this.unitModulesCount = Integer.parseInt(Settings.getInstance().getParam(unitModuleSettingsParam));
 
 
             ParentModule parentModule;
@@ -173,6 +180,14 @@ public class SystemHardWare extends CommunicableListener {
                     .getParam(unitModuleClassSettingsParam).replace('_', '.');
             Class instance = Class.forName(className);
             return (Module) instance.newInstance();
+        }
+
+        protected ParentModule getParentModule(long moduleId) {
+            for (ParentModule m : parentModuleList) {
+                if (m.getId() >= moduleId && moduleId <= (this.unitModulesCount + m.getId()))
+                    return m;
+            }
+            return null;
         }
     }
 }

@@ -26,7 +26,7 @@ import java.util.Collection;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public interface ParentModule {
+public interface ParentModule extends Module {
     public boolean addModule(Module module);
 
     public boolean addAllModule(Module... modules);
@@ -40,4 +40,9 @@ public interface ParentModule {
     public boolean removeModule(long id);
 
     public boolean removeAllModule();
+
+    public boolean turnOffModule(long moduleId);
+
+    public boolean turnOnModule(long moduleId);
+
 }

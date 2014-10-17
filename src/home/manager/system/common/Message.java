@@ -34,4 +34,8 @@ public interface Message {
     public void setMessageType(int type);
 
     public String getMessageTypeDescription();
+
+    public long getModuleId();
+
+    public void setModuleId(long id);
 }

@@ -1,4 +1,4 @@
-package home.manager.system.hardware.modules;
+package home.manager.system.common;
 
 /**
  * **********************************************************************
@@ -24,18 +24,24 @@ package home.manager.system.hardware.modules;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class RaspberryPiUnitModule extends BaseModule {
+abstract public class EncryptedMessage implements Message {
+
+    private String message;
+    private Filter filter;
+
+    public EncryptedMessage() {
+        filter = MessageEncryptFilter.getInstance();
+    }
 
     @Override
-    public boolean turnOff() {
-        System.out.println("Turning OFF. => Module Id: " + this.getId());
-        return super.turnOff();
+    public String getMessage() {
+        return message;
+    }
+
+    @Override
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 
-    @Override
-    public boolean turnOn() {
-        System.out.println("Turning ON. => Module Id: " + this.getId());
-        return super.turnOn();
-    }
 }

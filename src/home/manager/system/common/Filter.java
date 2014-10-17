@@ -1,4 +1,4 @@
-package home.manager.system.hardware.modules;
+package home.manager.system.common;
 
 /**
  * **********************************************************************
@@ -24,18 +24,8 @@ package home.manager.system.hardware.modules;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class RaspberryPiUnitModule extends BaseModule {
+abstract public class Filter {
+    abstract public <T> String executeBeforeFilter(T arg);
 
-    @Override
-    public boolean turnOff() {
-        System.out.println("Turning OFF. => Module Id: " + this.getId());
-        return super.turnOff();
-    }
-
-
-    @Override
-    public boolean turnOn() {
-        System.out.println("Turning ON. => Module Id: " + this.getId());
-        return super.turnOn();
-    }
+    abstract public <T> String executeAfterFilter(T arg);
 }

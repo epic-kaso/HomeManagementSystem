@@ -27,11 +27,13 @@ package home.manager.system.hardware.modules;
 public class RaspberryPiHubModule extends HubModule {
     @Override
     public boolean turnOff() {
+        System.out.println("Turning OFF. => Module Id: " + this.getId());
         return super.turnOff();
     }
 
     @Override
     public boolean turnOn() {
+        System.out.println("Turning ON. => Module Id: " + this.getId());
         return super.turnOn();
     }
 }

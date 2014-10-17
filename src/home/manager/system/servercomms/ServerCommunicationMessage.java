@@ -5,7 +5,7 @@
  */
 package home.manager.system.servercomms;
 
-import home.manager.system.common.Message;
+import home.manager.system.common.EncryptedMessage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +34,7 @@ import java.util.Map;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class ServerCommunicationMessage implements Message {
+public class ServerCommunicationMessage extends EncryptedMessage {
     public static Map<Integer, String> messageTypesMap;
 
     static {
@@ -45,7 +45,7 @@ public class ServerCommunicationMessage implements Message {
     }
 
     private int messageType;
-    private String message;
+    private long moduleId;
 
     @Override
     public int getMessageType() {
@@ -58,17 +58,17 @@ public class ServerCommunicationMessage implements Message {
     }
 
     @Override
-    public String getMessage() {
-        return message;
-    }
-
-    @Override
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    @Override
     public String getMessageTypeDescription() {
         return messageTypesMap.get(this.getMessageType());
+    }
+
+    @Override
+    public long getModuleId() {
+        return moduleId;
+    }
+
+    @Override
+    public void setModuleId(long moduleId) {
+        this.moduleId = moduleId;
     }
 }
